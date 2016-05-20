@@ -21,34 +21,37 @@ public class SquareDrawable
 	
 	public void draw()
 	{
-		if(texture != null)
+		if(texture != null) {
 			texture.bind();
+			glEnable(GL_TEXTURE_2D);
+		}else
+			glDisable(GL_TEXTURE_2D);
 		glBegin(GL_TRIANGLES);
 			if(texture != null)
 				glTexCoord2f(0, 1);
-			glVertex2f(x - width/2, y - height/2);
 			glColor3ub(r, g, b);
+			glVertex2f(x - width/2, y - height/2);
 			if(texture != null)
 				glTexCoord2f(1, 0);
-			glVertex2f(x + width/2, y + height/2);
 			glColor3ub(r, g, b);
+			glVertex2f(x + width/2, y + height/2);
 			if(texture != null)
 				glTexCoord2f(0, 0);
-			glVertex2f(x - width/2, y + height/2);
 			glColor3ub(r, g, b);
+			glVertex2f(x - width/2, y + height/2);
 
 			if(texture != null)
 				glTexCoord2f(0, 1);
-			glVertex2f(x - width/2, y - height/2);
 			glColor3ub(r, g, b);
+			glVertex2f(x - width/2, y - height/2);
 			if(texture != null)
 				glTexCoord2f(1, 0);
-			glVertex2f(x + width/2, y + height/2);
 			glColor3ub(r, g, b);
+			glVertex2f(x + width/2, y + height/2);
 			if(texture != null)
 				glTexCoord2f(1, 1);
-			glVertex2f(x + width/2, y - height/2);
 			glColor3ub(r, g, b);
+			glVertex2f(x + width/2, y - height/2);
 		glEnd();
 	}
 

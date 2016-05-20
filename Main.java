@@ -21,7 +21,9 @@ public class Main {
 	Window window;
 	int WIDTH = 640;
 	int HEIGHT = 480;
-	SquareDrawable square1 = new SquareDrawable(0, 0, 2, 2);
+	SquareDrawable square1 = new SquareDrawable(0, 0, 0.2f, 0.2f);
+	SquareDrawable square2 = new SquareDrawable(-0.5f, 0, 0.2f, 0.2f);
+	SquareDrawable square3 = new SquareDrawable(0.7f, 0, 0.2f, 0.2f);
 
 	public static void main(String[] args) {
 		Main main = new Main();
@@ -46,6 +48,7 @@ public class Main {
 		
 		//Texture Setup testing
 		square1.loadTexture("./images/WallTexture.png");
+		square2.setColor((byte)255, (byte)0, (byte)0);
 		glEnable(GL_TEXTURE_2D);
 	}
 	
@@ -59,6 +62,9 @@ public class Main {
 		window.clear();
 		//draw Calls
 		square1.draw();
+		square2.draw();
+		square3.draw();
+
 		window.display();
 	}
 	
