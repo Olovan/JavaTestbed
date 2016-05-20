@@ -15,7 +15,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class Main {
+public class TextureExample {
 	
 	long windowHandle;
 	int WIDTH = 640;
@@ -24,7 +24,7 @@ public class Main {
 	int texID;
 
 	public static void main(String[] args) {
-		Main main = new Main();
+		TextureExample main = new TextureExample();
 		main.run();
 	}
 	
@@ -98,6 +98,7 @@ public class Main {
 		}
 		catch(IOException e) {
 			System.err.println("Failed to load Texture");
+			return 0;
 		}
 		Raster raster = textureImageData.getRaster();
 		byte rawImageData[] = (byte[])raster.getDataElements(0, 0, textureImageData.getWidth(), textureImageData.getHeight(), null);
