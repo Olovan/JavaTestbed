@@ -18,7 +18,7 @@ public class SquareDrawable
 	{
 		texture = new Texture(path);
 	}
-	
+
 	public void draw()
 	{
 		if(texture != null) {
@@ -27,29 +27,23 @@ public class SquareDrawable
 		}else
 			glDisable(GL_TEXTURE_2D);
 		glBegin(GL_TRIANGLES);
-			if(texture != null)
-				glTexCoord2f(0, 1);
+			glTexCoord2f(0, 1);
 			glColor3ub(r, g, b);
 			glVertex2f(x - width/2, y - height/2);
-			if(texture != null)
-				glTexCoord2f(1, 0);
+			glTexCoord2f(1, 0);
 			glColor3ub(r, g, b);
 			glVertex2f(x + width/2, y + height/2);
-			if(texture != null)
-				glTexCoord2f(0, 0);
+			glTexCoord2f(0, 0);
 			glColor3ub(r, g, b);
 			glVertex2f(x - width/2, y + height/2);
 
-			if(texture != null)
-				glTexCoord2f(0, 1);
+			glTexCoord2f(0, 1);
 			glColor3ub(r, g, b);
 			glVertex2f(x - width/2, y - height/2);
-			if(texture != null)
-				glTexCoord2f(1, 0);
+			glTexCoord2f(1, 0);
 			glColor3ub(r, g, b);
 			glVertex2f(x + width/2, y + height/2);
-			if(texture != null)
-				glTexCoord2f(1, 1);
+			glTexCoord2f(1, 1);
 			glColor3ub(r, g, b);
 			glVertex2f(x + width/2, y - height/2);
 		glEnd();
