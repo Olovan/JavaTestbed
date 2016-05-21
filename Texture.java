@@ -9,7 +9,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Texture 
 {
-	int texID;
+	public int texID;
 
 	public Boolean loadTexture(String path)
 	{
@@ -26,7 +26,8 @@ public class Texture
 		byteBuff.put(rawData);
 		byteBuff.flip();
 		bind();
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, buffImg.getWidth(), buffImg.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, byteBuff); 
+		int dataFormat = raster.getNumDataElements() > 3 ? GL_RGBA : GL_RGB;
+		glTexImage2D(GL_TEXTURE_2D, 0, dataFormat, buffImg.getWidth(), buffImg.getHeight(), 0, dataFormat, GL_UNSIGNED_BYTE, byteBuff); 
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		return true;

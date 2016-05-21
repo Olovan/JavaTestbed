@@ -47,7 +47,7 @@ public class Main {
 		window = new Window();
 		
 		//Texture Setup testing
-		square1.loadTexture("./images/WallTexture.png");
+		square1.loadTexture("./images/Spaceman.png");
 		square2.setColor((byte)255, (byte)0, (byte)0);
 		glEnable(GL_TEXTURE_2D);
 	}
