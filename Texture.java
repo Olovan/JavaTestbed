@@ -30,6 +30,8 @@ public class Texture
 		glTexImage2D(GL_TEXTURE_2D, 0, dataFormat, buffImg.getWidth(), buffImg.getHeight(), 0, dataFormat, GL_UNSIGNED_BYTE, byteBuff); 
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		return true;
 	}
 
