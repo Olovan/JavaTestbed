@@ -19,11 +19,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class Main {
 	
 	Window window;
+
 	int WIDTH = 640;
 	int HEIGHT = 480;
-	SquareDrawable square1 = new SquareDrawable(0.65f, 0, 0.2f, 0.2f);
-	SquareDrawable square2 = new SquareDrawable(-0.5f, 0, 0.2f, 0.2f);
-	SquareDrawable square3 = new SquareDrawable(0.7f, 0, 0.2f, 0.2f);
+	SquareDrawable square1 = new SquareDrawable(100, 200, 40, 40);
+	SquareDrawable square2 = new SquareDrawable(500, 70, 40, 40);
+	SquareDrawable square3 = new SquareDrawable(300, 400, 40, 40);
 
 	public static void main(String[] args) {
 		Main main = new Main();
@@ -45,6 +46,9 @@ public class Main {
 	{
 		//Create Window
 		window = new Window();
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0, 640, 0, 480, 0, 10);
 		
 		//Texture Setup testing
 		square1.loadTexture("./images/Spaceman.png");
