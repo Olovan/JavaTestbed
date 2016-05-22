@@ -7,8 +7,8 @@ import static org.lwjgl.opengl.GL11.*;
 public class SquareDrawable 
 {
 	//Variables
-	private float x, y;
-	private float width, height;
+	public float x, y;
+	public float width, height;
 	private byte r, g, b;
 	private Texture texture;
 

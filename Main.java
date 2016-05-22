@@ -24,7 +24,7 @@ public class Main {
 	int HEIGHT = 480;
 	SquareDrawable square1 = new SquareDrawable(100, 200, 40, 40);
 	SquareDrawable square2 = new SquareDrawable(500, 70, 40, 40);
-	SquareDrawable square3 = new SquareDrawable(300, 400, 40, 40);
+	SquareDrawable square3 = new SquareDrawable(300, 200, 40, 40);
 
 	public static void main(String[] args) {
 		Main main = new Main();
