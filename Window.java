@@ -41,6 +41,7 @@ public class Window
 			return;	
 		}
 		glfwMakeContextCurrent(windowHandle);
+		glfwSwapInterval(1);
 		glfwShowWindow(windowHandle);
 		createCapabilities();
 	}
