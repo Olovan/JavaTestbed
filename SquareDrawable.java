@@ -7,8 +7,10 @@ import static org.lwjgl.opengl.GL11.*;
 public class SquareDrawable 
 {
 	//Variables
-	public float x, y;
+	public float x, y, z;
 	public float width, height;
+	public float originX = 0, originY = 0;
+	public float rotation = 0;
 	private byte r, g, b;
 	private Texture texture;
 
@@ -21,32 +23,37 @@ public class SquareDrawable
 
 	public void draw()
 	{
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glTranslatef(x, y, z);
+		glRotatef(rotation, 0, 0, 1);
 		if(texture != null) {
 			texture.bind();
 			glEnable(GL_TEXTURE_2D);
 		}else
 			glDisable(GL_TEXTURE_2D);
 		glBegin(GL_TRIANGLES);
-			glTexCoord2f(0, 1);
-			glColor3ub(r, g, b);
-			glVertex2f(x - width/2, y - height/2);
-			glTexCoord2f(1, 0);
-			glColor3ub(r, g, b);
-			glVertex2f(x + width/2, y + height/2);
 			glTexCoord2f(0, 0);
 			glColor3ub(r, g, b);
-			glVertex2f(x - width/2, y + height/2);
-
-			glTexCoord2f(0, 1);
-			glColor3ub(r, g, b);
-			glVertex2f(x - width/2, y - height/2);
-			glTexCoord2f(1, 0);
-			glColor3ub(r, g, b);
-			glVertex2f(x + width/2, y + height/2);
+			glVertex2f(-originX, height - originY);
 			glTexCoord2f(1, 1);
 			glColor3ub(r, g, b);
-			glVertex2f(x + width/2, y - height/2);
+			glVertex2f(width - originX, -originY);
+			glTexCoord2f(0, 1);
+			glColor3ub(r, g, b);
+			glVertex2f(-originX, -originY);
+
+			glTexCoord2f(0, 0);
+			glColor3ub(r, g, b);
+			glVertex2f(-originX, height - originY);
+			glTexCoord2f(1, 1);
+			glColor3ub(r, g, b);
+			glVertex2f(width - originX, -originY);
+			glTexCoord2f(1, 0);
+			glColor3ub(r, g, b);
+			glVertex2f(width - originX, height - originY);
 		glEnd();
+		glPopMatrix();
 	}
 
 	public void setColor(byte r, byte g, byte b)
@@ -64,6 +71,16 @@ public class SquareDrawable
 	{
 		this.x = x;
 		this.y = y;
+		this.z = 9;
+	}
+	public void setOrigin(float x, float y)
+	{
+		this.originX = x;
+		this.originY = y;
+	}
+	public void setRotation(float degrees)
+	{
+		rotation = degrees;
 	}
 	private void createSquare(float posX, float posY, float sizeX, float sizeY)
 	{

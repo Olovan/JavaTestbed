@@ -7,8 +7,10 @@ import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-
+import com.hackoeur.jglm.*;
+import com.sun.javafx.geom.Vec3f;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.Callbacks.*;
@@ -48,18 +50,26 @@ public class Main {
 		window = new Window();
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, 640, 0, 480, 0, 10);
+		glOrtho(0, 640, 0, 480, -10, 10);
+		//setup Camera
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		Mat4 matrix = Matrices.lookAt(new Vec3(0, 0, 0), new Vec3(0, 0, 1), new Vec3(0, 1, 0));
+		glMultMatrixf(matrix.getBuffer());
+
 		
 		//Texture Setup testing
-		square1.loadTexture("./images/Spaceman.png");
 		square2.setColor((byte)255, (byte)0, (byte)0);
 		square3.loadTexture("./images/Spaceman.png");
+		square1.loadTexture("./images/WallTexture.png");
 		glEnable(GL_TEXTURE_2D);
 	}
 	
 	public void update()
 	{
 		window.pollEvents();
+		square1.setPosition(square1.x + 1, square1.y);
+		square1.setRotation(square1.rotation + 1);
 	}
 	
 	public void render()
