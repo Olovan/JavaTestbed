@@ -24,9 +24,11 @@ public class Main {
 
 	int WIDTH = 640;
 	int HEIGHT = 480;
-	SquareDrawable square1 = new SquareDrawable(100, 200, 40, 40);
-	SquareDrawable square2 = new SquareDrawable(500, 70, 40, 40);
-	SquareDrawable square3 = new SquareDrawable(300, 200, 40, 40);
+	SquareDrawable square1 = new SquareDrawable(-100, 0, 40, 40);
+	SquareDrawable square2 = new SquareDrawable(200, 70, 40, 40);
+	SquareDrawable square3 = new SquareDrawable(-300, -100, 40, 40);
+	FloatBuffer buffer;
+	Camera camera;
 
 	public static void main(String[] args) {
 		Main main = new Main();
@@ -50,14 +52,21 @@ public class Main {
 		window = new Window();
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, 640, 0, 480, -10, 10);
+		glFrustum(-320, 320, -240, 240, 500, 1000);
+
 		//setup Camera
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		Mat4 matrix = Matrices.lookAt(new Vec3(0, 0, 0), new Vec3(0, 0, 1), new Vec3(0, 1, 0));
-		glMultMatrixf(matrix.getBuffer());
+		//Mat4 matrix = Matrices.lookAt(new Vec3(0, 0, 151), new Vec3(0, 0, -100), new Vec3(0, 1, 0));
+		//buffer = BufferUtils.createFloatBuffer(16);
+		//buffer.put(matrix.getBuffer().array());
+		//buffer.flip();
+		//glMultMatrixf(buffer);
+		//glTranslatef(0, 0, -150);
+		camera = new Camera();
+		camera.z = 550;
 
-		
+
 		//Texture Setup testing
 		square2.setColor((byte)255, (byte)0, (byte)0);
 		square3.loadTexture("./images/Spaceman.png");
@@ -68,8 +77,10 @@ public class Main {
 	public void update()
 	{
 		window.pollEvents();
-		square1.setPosition(square1.x + 1, square1.y);
-		square1.setRotation(square1.rotation + 1);
+		square1.setRotation(square1.rotation + 0.5f);
+		square1.setRotationAxis(0, 1, 0);
+		camera.yaw += 1;
+		camera.update();
 	}
 	
 	public void render()

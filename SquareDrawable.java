@@ -11,6 +11,7 @@ public class SquareDrawable
 	public float width, height;
 	public float originX = 0, originY = 0;
 	public float rotation = 0;
+	public float rotX = 0, rotY = 0, rotZ = 1;
 	private byte r, g, b;
 	private Texture texture;
 
@@ -26,7 +27,7 @@ public class SquareDrawable
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 		glTranslatef(x, y, z);
-		glRotatef(rotation, 0, 0, 1);
+		glRotatef(rotation, rotX, rotY, rotZ);
 		if(texture != null) {
 			texture.bind();
 			glEnable(GL_TEXTURE_2D);
@@ -71,7 +72,7 @@ public class SquareDrawable
 	{
 		this.x = x;
 		this.y = y;
-		this.z = 9;
+		this.z = 0;
 	}
 	public void setOrigin(float x, float y)
 	{
@@ -81,6 +82,12 @@ public class SquareDrawable
 	public void setRotation(float degrees)
 	{
 		rotation = degrees;
+	}
+	public void setRotationAxis(float x, float y, float z)
+	{
+		this.rotX = x;
+		this.rotY = y;
+		this.rotZ = z;
 	}
 	private void createSquare(float posX, float posY, float sizeX, float sizeY)
 	{
