@@ -72,6 +72,16 @@ public class Main {
 		square3.loadTexture("./images/Spaceman.png");
 		square1.loadTexture("./images/WallTexture.png");
 		glEnable(GL_TEXTURE_2D);
+		
+		//Input Manager
+		InputManager.init();
+		glfwSetKeyCallback(window.windowHandle, new GLFWKeyCallback() {
+			@Override
+			public void invoke(long window, int key, int scancode, int action, int mods) {
+				// TODO Auto-generated method stub
+				InputManager.glfwKeyCallback(key, scancode, action, mods);
+			}
+			});
 	}
 	
 	public void update()
@@ -79,7 +89,10 @@ public class Main {
 		window.pollEvents();
 		square1.setRotation(square1.rotation + 0.5f);
 		square1.setRotationAxis(0, 1, 0);
-		camera.yaw += 1;
+		if(InputManager.getKey(GLFW_KEY_D))
+			camera.yaw -= 1;
+		if(InputManager.getKey(GLFW_KEY_A))
+			camera.yaw += 1;
 		camera.update();
 	}
 	
