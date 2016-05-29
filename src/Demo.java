@@ -16,21 +16,20 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class Main {
-	
-	Window window;
+public class Demo {
 
 	int WIDTH = 1000;
 	int HEIGHT = 800;
+
+	Window window;
 	SquareDrawable square1 = new SquareDrawable(-100, 0, 80, 80);
 	SquareDrawable square2 = new SquareDrawable(200, 70, 80, 80);
 	SquareDrawable square3 = new SquareDrawable(-300, -100, 80, 80);
-	FloatBuffer buffer;
 	Camera camera;
 
 	public static void main(String[] args) {
-		Main main = new Main();
-		main.run();
+		Demo demo= new Demo();
+		demo.run();
 	}
 	
 	public void run()

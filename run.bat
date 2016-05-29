@@ -1,1 +1,1 @@
-java -cp "./bin;C:\Libraries\LWJGL\jar\lwjgl.jar;C:\Libraries\LWJGL\native;" Main
+java -cp "./bin;C:\Libraries\LWJGL\jar\lwjgl.jar;C:\Libraries\LWJGL\native;" Demo 
