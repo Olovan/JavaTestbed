@@ -50,21 +50,18 @@ public class Main {
 	{
 		//Create Window
 		window = new Window();
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glFrustum(-320, 320, -240, 240, 500, 1000);
-
-		//setup Camera
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+		camera = new Camera();
+		camera.perspectiveProjection(60, 640/480, 1, 1000);
+		camera.z = 100;
+		//glMatrixMode(GL_PROJECTION);
+		//glLoadIdentity();
+		//glFrustum(-320, 320, -240, 240, 100, 2000);
 		//Mat4 matrix = Matrices.lookAt(new Vec3(0, 0, 151), new Vec3(0, 0, -100), new Vec3(0, 1, 0));
 		//buffer = BufferUtils.createFloatBuffer(16);
 		//buffer.put(matrix.getBuffer().array());
 		//buffer.flip();
 		//glMultMatrixf(buffer);
 		//glTranslatef(0, 0, -150);
-		camera = new Camera();
-		camera.z = 550;
 
 
 		//Texture Setup testing
