@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import com.hackoeur.jglm.*;
-import com.sun.javafx.geom.Vec3f;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.Callbacks.*;
@@ -22,8 +20,8 @@ public class Main {
 	
 	Window window;
 
-	int WIDTH = 640;
-	int HEIGHT = 480;
+	int WIDTH = 1000;
+	int HEIGHT = 800;
 	SquareDrawable square1 = new SquareDrawable(-100, 0, 80, 80);
 	SquareDrawable square2 = new SquareDrawable(200, 70, 80, 80);
 	SquareDrawable square3 = new SquareDrawable(-300, -100, 80, 80);
@@ -49,9 +47,9 @@ public class Main {
 	public void init()
 	{
 		//Create Window
-		window = new Window();
+		window = new Window(WIDTH, HEIGHT);
 		camera = new Camera();
-		camera.perspectiveProjection(60, 640/480, 1, 1000);
+		camera.perspectiveProjection(60, WIDTH/HEIGHT, 1, 1000);
 		camera.z = 100;
 		//glMatrixMode(GL_PROJECTION);
 		//glLoadIdentity();
