@@ -24,9 +24,9 @@ public class Main {
 
 	int WIDTH = 640;
 	int HEIGHT = 480;
-	SquareDrawable square1 = new SquareDrawable(-100, 0, 40, 40);
-	SquareDrawable square2 = new SquareDrawable(200, 70, 40, 40);
-	SquareDrawable square3 = new SquareDrawable(-300, -100, 40, 40);
+	SquareDrawable square1 = new SquareDrawable(-100, 0, 80, 80);
+	SquareDrawable square2 = new SquareDrawable(200, 70, 80, 80);
+	SquareDrawable square3 = new SquareDrawable(-300, -100, 80, 80);
 	FloatBuffer buffer;
 	Camera camera;
 
@@ -71,6 +71,7 @@ public class Main {
 		square2.setColor((byte)255, (byte)0, (byte)0);
 		square3.loadTexture("./images/Spaceman.png");
 		square1.loadTexture("./images/WallTexture.png");
+		square1.setOrigin(20, 20);
 		glEnable(GL_TEXTURE_2D);
 		
 		//Input Manager
@@ -87,12 +88,16 @@ public class Main {
 	public void update()
 	{
 		window.pollEvents();
-		square1.setRotation(square1.rotation + 0.5f);
-		square1.setRotationAxis(0, 1, 0);
+		//square1.setRotation(square1.rotation + 0.5f);
+		//square1.setRotationAxis(0, 1, 0);
 		if(InputManager.getKey(GLFW_KEY_D))
-			camera.yaw -= 1;
-		if(InputManager.getKey(GLFW_KEY_A))
 			camera.yaw += 1;
+		if(InputManager.getKey(GLFW_KEY_A))
+			camera.yaw -= 1;
+		if(InputManager.getKey(GLFW_KEY_W))
+			camera.pitch += 1;
+		if(InputManager.getKey(GLFW_KEY_S))
+			camera.pitch -= 1;
 		camera.update();
 	}
 	

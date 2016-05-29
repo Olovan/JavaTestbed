@@ -19,7 +19,7 @@ public class Camera
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glRotatef(-pitch, 1, 0, 0);
-		glRotatef(-yaw, 0, 1, 0);
+		glRotatef(yaw, 0, 1, 0);
 		glTranslatef(-x, -y, -z);
 	}
 
