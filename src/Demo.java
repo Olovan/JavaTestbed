@@ -92,6 +92,10 @@ public class Demo {
 			camera.pitch += 1;
 		if(InputManager.getKey(GLFW_KEY_S))
 			camera.pitch -= 1;
+		if(InputManager.getKey(GLFW_KEY_E))
+			camera.roll += 1;
+		if(InputManager.getKey(GLFW_KEY_Q))
+			camera.roll -= 1;
 		camera.update();
 	}
 	
