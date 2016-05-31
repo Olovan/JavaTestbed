@@ -115,6 +115,18 @@ public class Demo {
 			camera.roll += 1;
 		if(InputManager.getKey(GLFW_KEY_Q))
 			camera.roll -= 1;
+		if(InputManager.getKey(GLFW_KEY_LEFT))
+			camera.x -= 1;
+		if(InputManager.getKey(GLFW_KEY_RIGHT))
+			camera.x += 1;
+		if(InputManager.getKey(GLFW_KEY_UP))
+			camera.z -= 1;
+		if(InputManager.getKey(GLFW_KEY_DOWN))
+			camera.z += 1;
+		if(InputManager.getKey(GLFW_KEY_SPACE))
+			camera.y += 1;
+		if(InputManager.getKey(GLFW_KEY_LEFT_CONTROL))
+			camera.y -= 1;
 		camera.update();
 	}
 
