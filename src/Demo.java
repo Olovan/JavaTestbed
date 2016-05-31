@@ -78,6 +78,7 @@ public class Demo {
 		bunny.scale = 100;
 		cube = new Model();
 		cube.loadFromFile("./objects/Cube.obj");
+		cube.scale = 10;
 
 		//Input Manager
 		InputManager.init();
@@ -97,6 +98,9 @@ public class Demo {
 		window.pollEvents();
 		
 		bunny.z -= 1;
+		bunny.rotation--;
+		cube.rotation++;
+
 		//square1.setRotation(square1.rotation + 0.5f);
 		//square1.setRotationAxis(0, 1, 0);
 		if(InputManager.getKey(GLFW_KEY_D))
@@ -122,7 +126,7 @@ public class Demo {
 		square3.draw();
 		square1.draw();
 		bunny.draw();
-		//cube.draw();
+		cube.draw();
 
 		window.display();
 	}

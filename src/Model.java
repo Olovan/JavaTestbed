@@ -18,9 +18,9 @@ public class Model
 	public List<Byte> colors;
 	public List<Integer> indices;
 	
-	private float rotation;
-	public float scale;
-	public float x, y, z;
+	public float rotation = 0;
+	public float scale = 1;
+	public float x = 0, y = 0, z = 0;
 
 
 	private String data;
@@ -41,28 +41,19 @@ public class Model
 	
 	public void draw()
 	{
-		glMatrixMode(GL_MODELVIEW);
-		glTranslatef(x, y, z);
-		glRotatef(rotation++, 1, 1, 1);
-		glScalef(scale, scale, scale);
-
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glDisable(GL_TEXTURE_2D);
+
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glTranslatef(x, y, z);
+		glRotatef(rotation, 1, 1, 1);
+		glScalef(scale, scale, scale);
 		
 		glVertexPointer(3, GL_FLOAT, 0, vertexBuffer);
 		glColorPointer(3, GL_UNSIGNED_BYTE, 0, colorBuffer);
 		glDrawElements(GL_TRIANGLES, indexBuffer);
-		glFlush();
-		
-//		glVertexPointer(3, GL_FLOAT, 0, vertexBuffer);
-//		glBegin(GL_TRIANGLES);
-//			for(int i = 0; i < indices.size(); i++)
-//			{
-//				glColor3ub((byte)255, (byte)255, (byte)255);
-//				glArrayElement(indices.get(i));
-//			}
-		glEnd();
-		
+		glPopMatrix();
 	}
 
 
