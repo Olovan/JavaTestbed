@@ -76,6 +76,8 @@ public class Demo {
 		bunny = new Model();
 		bunny.loadFromFile("./objects/StanfordBunny.obj");
 		bunny.scale = 100;
+		bunny.z = 20;
+		bunny.x = 40;
 		cube = new Model();
 		cube.loadFromFile("./objects/Cube.obj");
 		cube.scale = 10;
@@ -97,7 +99,6 @@ public class Demo {
 	{
 		window.pollEvents();
 		
-		bunny.z -= 1;
 		bunny.rotation--;
 		cube.rotation++;
 
