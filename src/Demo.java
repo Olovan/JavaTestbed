@@ -25,8 +25,7 @@ public class Demo {
 	SquareDrawable square1 = new SquareDrawable(-100, 0, 80, 80);
 	SquareDrawable square2 = new SquareDrawable(200, 70, 80, 80);
 	SquareDrawable square3 = new SquareDrawable(-300, -100, 80, 80);
-	Model bunny;
-	Model cube;
+	Model model;
 	Camera camera;
 	GLFWKeyCallback fuckGarbageCollector;
 
@@ -73,14 +72,10 @@ public class Demo {
 		glEnable(GL_TEXTURE_2D);
 		
 		//Load Model
-		bunny = new Model();
-		bunny.loadFromFile("./objects/StanfordBunny.obj");
-		bunny.scale = 100;
-		bunny.z = 20;
-		bunny.x = 40;
-		cube = new Model();
-		cube.loadFromFile("./objects/Cube.obj");
-		cube.scale = 10;
+		model = new Model("./objects/StanfordBunny.obj");
+		model.scale = 100;
+		model.z = 20;
+		model.y = -10;
 
 		//Input Manager
 		InputManager.init();
@@ -99,8 +94,7 @@ public class Demo {
 	{
 		window.pollEvents();
 		
-		bunny.rotation--;
-		cube.rotation++;
+		//model.rotation--;
 
 		//square1.setRotation(square1.rotation + 0.5f);
 		//square1.setRotationAxis(0, 1, 0);
@@ -133,13 +127,20 @@ public class Demo {
 
 	public void render()
 	{
+		glShadeModel(GL_SMOOTH);
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+		glEnable(GL_COLOR_MATERIAL);
+		glColorMaterial(GL_FRONT, GL_DIFFUSE);
+		//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, Utils.asFloatBuffer(new float[] {1, 1, 1, 1}));
+		glLightfv(GL_LIGHT0, GL_POSITION, Utils.asFloatBuffer(new float[] {0, 5, 10, 1}));
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, Utils.asFloatBuffer(new float[] {10, 1, 1, 1}));
 		window.clear();
 		//draw Calls
 		square2.draw();
 		square3.draw();
 		square1.draw();
-		bunny.draw();
-		cube.draw();
+		model.draw();
 
 		window.display();
 	}
