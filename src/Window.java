@@ -14,7 +14,6 @@ public class Window
 
 
 	//Methods
-	
 	public void pollEvents()
 	{
 		glfwPollEvents();
@@ -23,6 +22,11 @@ public class Window
 	public void clear()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+	
+	public void setClearColor(float r, float g, float b, float a)
+	{
+		glClearColor(r, g, b, a);
 	}
 
 	public void display()

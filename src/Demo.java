@@ -25,13 +25,16 @@ public class Demo {
 	SquareDrawable square1 = new SquareDrawable(-100, 0, 80, 80);
 	SquareDrawable square2 = new SquareDrawable(200, 70, 80, 80);
 	SquareDrawable square3 = new SquareDrawable(-300, -100, 80, 80);
+	Model bunny;
+	Model cube;
 	Camera camera;
+	GLFWKeyCallback fuckGarbageCollector;
 
 	public static void main(String[] args) {
 		Demo demo= new Demo();
 		demo.run();
 	}
-	
+
 	public void run()
 	{
 		init();
@@ -42,14 +45,15 @@ public class Demo {
 		}
 
 	}
-	
+
 	public void init()
 	{
 		//Create Window
 		window = new Window(WIDTH, HEIGHT);
+		window.setClearColor(0.2f, 0.1f, 0.3f, 1);
 		camera = new Camera();
 		camera.perspectiveProjection(60, WIDTH/HEIGHT, 1, 1000);
-		camera.z = 100;
+		camera.z = 50;
 		//glMatrixMode(GL_PROJECTION);
 		//glLoadIdentity();
 		//glFrustum(-320, 320, -240, 240, 100, 2000);
@@ -68,20 +72,31 @@ public class Demo {
 		square1.setOrigin(20, 20);
 		glEnable(GL_TEXTURE_2D);
 		
+		//Load Model
+		bunny = new Model();
+		bunny.loadFromFile("./objects/StanfordBunny.obj");
+		bunny.scale = 100;
+		cube = new Model();
+		cube.loadFromFile("./objects/Cube.obj");
+
 		//Input Manager
 		InputManager.init();
-		glfwSetKeyCallback(window.windowHandle, new GLFWKeyCallback() {
+		fuckGarbageCollector = new GLFWKeyCallback() 
+		{
 			@Override
 			public void invoke(long window, int key, int scancode, int action, int mods) {
 				// TODO Auto-generated method stub
 				InputManager.glfwKeyCallback(key, scancode, action, mods);
 			}
-			});
+		};
+		glfwSetKeyCallback(window.windowHandle, fuckGarbageCollector);
 	}
-	
+
 	public void update()
 	{
 		window.pollEvents();
+		
+		bunny.z -= 1;
 		//square1.setRotation(square1.rotation + 0.5f);
 		//square1.setRotationAxis(0, 1, 0);
 		if(InputManager.getKey(GLFW_KEY_D))
@@ -98,7 +113,7 @@ public class Demo {
 			camera.roll -= 1;
 		camera.update();
 	}
-	
+
 	public void render()
 	{
 		window.clear();
@@ -106,9 +121,11 @@ public class Demo {
 		square2.draw();
 		square3.draw();
 		square1.draw();
+		bunny.draw();
+		//cube.draw();
 
 		window.display();
 	}
-	
+
 
 }
