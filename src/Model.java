@@ -122,10 +122,11 @@ public class Model
 			case 'f':
 				scanner.skip("f");
 				int tempInt;
-				while(scanner.hasNextInt() == true)
+				String[] verts = input.split(" ");
+				for(int i = 1; i < verts.length; i++)
 				{
-					tempInt = scanner.nextInt();
-					indices.add(tempInt);
+					String vertexData[] = verts[i].split("/");
+					indices.add(Integer.parseInt(vertexData[0]));
 				}
 				break;
 			//other
