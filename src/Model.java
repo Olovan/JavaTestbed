@@ -185,9 +185,6 @@ public class Model
 			tempNormals[i] = normals.get(i).floatValue();
 		normalsBuffer.put(tempNormals);
 		normalsBuffer.flip();
-		
-		System.out.println(normals.size());
-		System.out.println(vertices.size());
 	}
 
 }
