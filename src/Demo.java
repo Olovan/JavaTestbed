@@ -10,11 +10,13 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL.*;
 import static org.lwjgl.system.MemoryUtil.*;
+import static java.lang.Math.*;
 
 public class Demo {
 
@@ -49,7 +51,7 @@ public class Demo {
 	{
 		//Create Window
 		window = new Window(WIDTH, HEIGHT);
-		window.setClearColor(0.2f, 0.1f, 0.3f, 1);
+		window.setClearColor(0.0f, 0.0f, 0.0f, 1);
 		camera = new Camera();
 		camera.perspectiveProjection(60, WIDTH/HEIGHT, 1, 1000);
 		camera.z = 50;
@@ -101,7 +103,7 @@ public class Demo {
 	{
 		window.pollEvents();
 		
-		model.rotation--;
+		model.rotation++;
 
 		square1.setRotation(square1.rotation + 0.5f);
 		square1.setRotationAxis(0, 1, 0);
@@ -135,15 +137,16 @@ public class Demo {
 
 	public void render()
 	{
+		float lightRotation = model.rotation * 3.1415f / 180;
 		glFrontFace(GL_CW);
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_LIGHT0);
 		glEnable(GL_COLOR_MATERIAL);
 		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
-		//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, Utils.asFloatBuffer(new float[] {1, 1, 1, 1}));
-		glLightfv(GL_LIGHT0, GL_POSITION, Utils.asFloatBuffer(new float[] {0, 10, 500, 1}));
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, Utils.asFloatBuffer(new float[] {0.5f, 0.5f, 0.5f, 1}));
+		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, Utils.asFloatBuffer(new float[] {0.0f, 0.0f, 0.0f, 1}));
+		glLightfv(GL_LIGHT0, GL_POSITION, Utils.asFloatBuffer(new float[] {0, 40 * (float)sin(lightRotation), 40 * (float)cos(lightRotation), 1}));
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, Utils.asFloatBuffer(new float[] {0.2f, 0.2f, 0.2f, 1}));
 		window.clear();
 		//draw Calls
 		square2.draw();
