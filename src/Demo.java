@@ -72,8 +72,8 @@ public class Demo {
 		glEnable(GL_TEXTURE_2D);
 		
 		//Load Model
-		model = new Model("./objects/StanfordBunny.obj");
-		model.scale = 200;
+		model = new Model("./objects/bunny.obj");
+		model.scale = 10;
 		model.z = 0;
 		model.y = -10;
 
@@ -143,7 +143,7 @@ public class Demo {
 		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
 		//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, Utils.asFloatBuffer(new float[] {1, 1, 1, 1}));
 		glLightfv(GL_LIGHT0, GL_POSITION, Utils.asFloatBuffer(new float[] {0, 10, 500, 1}));
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, Utils.asFloatBuffer(new float[] {0.2f, 0.2f, 0.2f, 1}));
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, Utils.asFloatBuffer(new float[] {0.5f, 0.5f, 0.5f, 1}));
 		window.clear();
 		//draw Calls
 		square2.draw();

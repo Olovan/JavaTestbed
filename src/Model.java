@@ -18,7 +18,7 @@ public class Model
 	public List<Byte> colors;
 	public List<Integer> indices;
 	public List<Float> normals;
-	
+
 	public float rotation = 0;
 	public float scale = 1;
 	public float x = 0, y = 0, z = 0;
@@ -51,6 +51,8 @@ public class Model
 	public void draw()
 	{
 		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		//glEnable(GL_COLOR_MATERIAL);
 		glDisable(GL_TEXTURE_2D);
 
 		glMatrixMode(GL_MODELVIEW);
@@ -59,16 +61,19 @@ public class Model
 		glRotatef(rotation, 0, 1, 0);
 		glScalef(scale, scale, scale);
 		
+
+
+		glNormalPointer(GL_FLOAT, 0, normalsBuffer);
 		glVertexPointer(3, GL_FLOAT, 0, vertexBuffer);
 		glColorPointer(3, GL_UNSIGNED_BYTE, 0, colorBuffer);
 		glDrawElements(GL_TRIANGLES, indexBuffer);
 
-//		Alternate Draw Command
-//		glColor3ub((byte)255, (byte)255, (byte)255);
-//		glBegin(GL_TRIANGLES);
-//		for(int i = 0; i < indices.size(); i++)
-//			glArrayElement(indices.get(i) - 1);
-//		glEnd();
+		//		Alternate Draw Command
+		//		glColor3ub((byte)255, (byte)255, (byte)255);
+		//		glBegin(GL_TRIANGLES);
+		//		for(int i = 0; i < indices.size(); i++)
+		//			glArrayElement(indices.get(i) - 1);
+		//		glEnd();
 
 		glPopMatrix();
 	}
@@ -105,41 +110,45 @@ public class Model
 		return true;
 	}
 
-	
+
 	private void insertDataFromString(String input)
 	{
 		if(input == null || input.isEmpty() || input.length() == 0)
 			return;
 		Scanner scanner = new Scanner(input);
-		switch(input.charAt(0))
+		//Vertex
+		if(input.startsWith("v "))
 		{
-			//Vertex
-			case 'v':
-				scanner.skip("v");
-				float tempFloat;
-				while(scanner.hasNextFloat() == true)
-				{
-					tempFloat = scanner.nextFloat();
-					vertices.add(tempFloat);
-					colors.add((byte) 255);
-				}
-				break;
-			//Index
-			case 'f':
-				scanner.skip("f");
-				int tempInt;
-				String[] verts = input.split(" ");
-				for(int i = 1; i < verts.length; i++) //Skip verts[0] since that is the "f"
-				{
-					String vertexData[] = verts[i].split("/");
-					indices.add(Integer.parseInt(vertexData[0]));
-				}
-				break;
-			//other
-			default:
-				//System.out.println(input);
-				break;
-		}	
+			scanner.skip("v");
+			float temp;
+			while(scanner.hasNextFloat() == true)
+			{
+				temp = scanner.nextFloat();
+				vertices.add(temp);
+				colors.add((byte) 255);
+			}
+		}
+		else if(input.startsWith("vn "))
+		{
+			scanner.skip("vn ");
+			float temp;
+			while(scanner.hasNextFloat() == true)
+			{
+				temp = scanner.nextFloat();
+				normals.add(temp);
+			}
+		}
+		//Index
+		else if(input.startsWith("f "))
+		{
+			scanner.skip("f");
+			String[] verts = input.split(" ");
+			for(int i = 1; i < verts.length; i++) //Skip verts[0] since that is the "f"
+			{
+				String vertexData[] = verts[i].split("/");
+				indices.add(Integer.parseInt(vertexData[0]));
+			}
+		}
 		scanner.close();
 	}
 
@@ -152,7 +161,7 @@ public class Model
 			tempFloat[i] = vertices.get(i).floatValue();
 		vertexBuffer.put(tempFloat);
 		vertexBuffer.flip();
-		
+
 		//Colors
 		colorBuffer = BufferUtils.createByteBuffer(colors.size());
 		byte[] tempByte = new byte[colors.size()];
@@ -160,7 +169,7 @@ public class Model
 			tempByte[i] = colors.get(i).byteValue();
 		colorBuffer.put(tempByte);
 		colorBuffer.flip();
-		
+
 		//Indices
 		indexBuffer = BufferUtils.createIntBuffer(indices.size());
 		int[] tempInt = new int[indices.size()];
@@ -168,7 +177,7 @@ public class Model
 			tempInt[i] = indices.get(i).intValue() - 1;
 		indexBuffer.put(tempInt);
 		indexBuffer.flip();
-		
+
 		//Normals
 		normalsBuffer = BufferUtils.createFloatBuffer(normals.size());
 		float[] tempNormals = new float[normals.size()];
@@ -176,6 +185,9 @@ public class Model
 			tempNormals[i] = normals.get(i).floatValue();
 		normalsBuffer.put(tempNormals);
 		normalsBuffer.flip();
+		
+		System.out.println(normals.size());
+		System.out.println(vertices.size());
 	}
 
 }
