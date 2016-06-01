@@ -17,6 +17,7 @@ public class Model
 	public List<Float> vertices;
 	public List<Byte> colors;
 	public List<Integer> indices;
+	public List<Float> normals;
 	
 	public float rotation = 0;
 	public float scale = 1;
@@ -27,19 +28,24 @@ public class Model
 	private FloatBuffer vertexBuffer;
 	private IntBuffer indexBuffer;
 	private ByteBuffer colorBuffer;
+	private FloatBuffer normalsBuffer;
 
 	public Model()
 	{
-		vertices = new ArrayList<Float>();
-		indices = new ArrayList<Integer>();
-		colors = new ArrayList<Byte>();
+		init();
 	}
 	public Model(String file)
+	{
+		init();
+		loadFromFile(file);
+	}
+
+	void init()
 	{
 		vertices = new ArrayList<Float>();
 		indices = new ArrayList<Integer>();
 		colors = new ArrayList<Byte>();
-		loadFromFile(file);
+		normals = new ArrayList<Float>();
 	}
 
 	public void draw()
@@ -123,7 +129,7 @@ public class Model
 				scanner.skip("f");
 				int tempInt;
 				String[] verts = input.split(" ");
-				for(int i = 1; i < verts.length; i++)
+				for(int i = 1; i < verts.length; i++) //Skip verts[0] since that is the "f"
 				{
 					String vertexData[] = verts[i].split("/");
 					indices.add(Integer.parseInt(vertexData[0]));
@@ -162,6 +168,14 @@ public class Model
 			tempInt[i] = indices.get(i).intValue() - 1;
 		indexBuffer.put(tempInt);
 		indexBuffer.flip();
+		
+		//Normals
+		normalsBuffer = BufferUtils.createFloatBuffer(normals.size());
+		float[] tempNormals = new float[normals.size()];
+		for(int i = 0; i < normals.size(); i++)
+			tempNormals[i] = normals.get(i).floatValue();
+		normalsBuffer.put(tempNormals);
+		normalsBuffer.flip();
 	}
 
 }
