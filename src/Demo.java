@@ -73,9 +73,16 @@ public class Demo {
 		
 		//Load Model
 		model = new Model("./objects/StanfordBunny.obj");
-		model.scale = 100;
-		model.z = 20;
+		model.scale = 200;
+		model.z = 0;
 		model.y = -10;
+
+		//Culling Test Settings
+		//glEnable(GL_CULL_FACE);
+		//glCullFace(GL_FRONT);
+		//glFrontFace(GL_CCW);
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_NORMALIZE);
 
 		//Input Manager
 		InputManager.init();
@@ -94,10 +101,11 @@ public class Demo {
 	{
 		window.pollEvents();
 		
-		//model.rotation--;
+		model.rotation--;
 
-		//square1.setRotation(square1.rotation + 0.5f);
-		//square1.setRotationAxis(0, 1, 0);
+		square1.setRotation(square1.rotation + 0.5f);
+		square1.setRotationAxis(0, 1, 0);
+
 		if(InputManager.getKey(GLFW_KEY_D))
 			camera.yaw += 1;
 		if(InputManager.getKey(GLFW_KEY_A))
@@ -127,14 +135,15 @@ public class Demo {
 
 	public void render()
 	{
+		glFrontFace(GL_CW);
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_LIGHT0);
 		glEnable(GL_COLOR_MATERIAL);
-		glColorMaterial(GL_FRONT, GL_DIFFUSE);
+		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
 		//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, Utils.asFloatBuffer(new float[] {1, 1, 1, 1}));
-		glLightfv(GL_LIGHT0, GL_POSITION, Utils.asFloatBuffer(new float[] {0, 5, 10, 1}));
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, Utils.asFloatBuffer(new float[] {10, 1, 1, 1}));
+		glLightfv(GL_LIGHT0, GL_POSITION, Utils.asFloatBuffer(new float[] {0, 10, 500, 1}));
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, Utils.asFloatBuffer(new float[] {0.2f, 0.2f, 0.2f, 1}));
 		window.clear();
 		//draw Calls
 		square2.draw();

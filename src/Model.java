@@ -45,6 +45,7 @@ public class Model
 	public void draw()
 	{
 		glEnableClientState(GL_VERTEX_ARRAY);
+		glDisable(GL_TEXTURE_2D);
 
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();

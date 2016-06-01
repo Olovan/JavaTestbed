@@ -37,12 +37,12 @@ public class SquareDrawable
 			glTexCoord2f(0, 0);
 			glColor3ub(r, g, b);
 			glVertex2f(-originX, height - originY);
-			glTexCoord2f(1, 1);
-			glColor3ub(r, g, b);
-			glVertex2f(width - originX, -originY);
 			glTexCoord2f(0, 1);
 			glColor3ub(r, g, b);
 			glVertex2f(-originX, -originY);
+			glTexCoord2f(1, 1);
+			glColor3ub(r, g, b);
+			glVertex2f(width - originX, -originY);
 
 			glTexCoord2f(0, 0);
 			glColor3ub(r, g, b);
