@@ -144,8 +144,12 @@ public class Demo {
 		glEnable(GL_LIGHT0);
 		glEnable(GL_COLOR_MATERIAL);
 		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+		//glColorMaterial(GL_FRONT_AND_BACK, GL_SPECULAR);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, Utils.asFloatBuffer(new float[] {0.8f, 0.8f, 0.8f, 1}));
+		glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 120);
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, Utils.asFloatBuffer(new float[] {0.0f, 0.0f, 0.0f, 1}));
 		glLightfv(GL_LIGHT0, GL_POSITION, Utils.asFloatBuffer(new float[] {0, 40 * (float)sin(lightRotation), 40 * (float)cos(lightRotation), 1}));
+		glLightfv(GL_LIGHT0, GL_SPECULAR, Utils.asFloatBuffer(new float[] {0.8f, 0.8f, 0.8f, 1}));
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, Utils.asFloatBuffer(new float[] {0.2f, 0.2f, 0.2f, 1}));
 		window.clear();
 		//draw Calls
