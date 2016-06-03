@@ -1,2 +1,3 @@
 #!/bin/sh
-java -cp "./bin:/home/micah/Documents/Libraries/LWJGL/jar/lwjgl.jar:/home/micah/Documents/Libraries/LWJGL/native" Demo
+LWJGL_DIR="/home/micah/Documents/Libraries/LWJGL"
+java -cp "./bin:${LWJGL_DIR}/jar/lwjgl.jar:${LWJGL_DIR}/native" Demo
