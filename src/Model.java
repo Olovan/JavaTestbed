@@ -115,33 +115,31 @@ public class Model
 	{
 		if(input == null || input.isEmpty() || input.length() == 0)
 			return;
-		Scanner scanner = new Scanner(input);
 		//Vertex
 		if(input.startsWith("v "))
 		{
-			scanner.skip("v");
+			String[] verts = input.split(" ");
 			float temp;
-			while(scanner.hasNextFloat() == true)
+			for(int i = 1; i < verts.length; i++)
 			{
-				temp = scanner.nextFloat();
+				temp = Float.parseFloat(verts[i]);
 				vertices.add(temp);
 				colors.add((byte) 255);
 			}
 		}
 		else if(input.startsWith("vn "))
 		{
-			scanner.skip("vn ");
-			float temp;
-			while(scanner.hasNextFloat() == true)
+			String[] stringNormals= input.split(" ");
+			float normal;
+			for(int i = 1; i < stringNormals.length; i++)
 			{
-				temp = scanner.nextFloat();
-				normals.add(temp);
+				normal = Float.parseFloat(stringNormals[i]);
+				normals.add(normal);
 			}
 		}
 		//Index
 		else if(input.startsWith("f "))
 		{
-			scanner.skip("f");
 			String[] verts = input.split(" ");
 			for(int i = 1; i < verts.length; i++) //Skip verts[0] since that is the "f"
 			{
@@ -149,7 +147,6 @@ public class Model
 				indices.add(Integer.parseInt(vertexData[0]));
 			}
 		}
-		scanner.close();
 	}
 
 	private void generateBuffers()
