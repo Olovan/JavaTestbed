@@ -30,6 +30,7 @@ public class Demo {
 	Model model;
 	Camera camera;
 	GLFWKeyCallback fuckGarbageCollector;
+	Light light0;
 
 	public static void main(String[] args) {
 		Demo demo= new Demo();
@@ -97,6 +98,20 @@ public class Demo {
 			}
 		};
 		glfwSetKeyCallback(window.windowHandle, fuckGarbageCollector);
+
+		//Lighting
+		glShadeModel(GL_SMOOTH);
+		glEnable(GL_COLOR_MATERIAL);
+		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+		glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 120);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, Utils.asFloatBuffer(new float[] {0.8f, 0.8f, 0.8f, 1}));
+		light0 = new Light(GL_LIGHT0);
+		light0.setDiffuse(new float[] {0.2f, 0.2f, 0.2f, 1});
+		light0.setSpecular(new float[] {0.8f, 0.8f, 0.8f, 1});
+		light0.setPosition(new float[] {20, 20, 40, 1});
+
+		Light.setAmbient(new float[] {0, 0, 0, 1});
+
 	}
 
 	public void update()
@@ -137,20 +152,6 @@ public class Demo {
 
 	public void render()
 	{
-		float lightRotation = model.rotation * 3.1415f / 180;
-		glFrontFace(GL_CW);
-		glShadeModel(GL_SMOOTH);
-		glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT0);
-		glEnable(GL_COLOR_MATERIAL);
-		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
-		//glColorMaterial(GL_FRONT_AND_BACK, GL_SPECULAR);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, Utils.asFloatBuffer(new float[] {0.8f, 0.8f, 0.8f, 1}));
-		glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 120);
-		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, Utils.asFloatBuffer(new float[] {0.0f, 0.0f, 0.0f, 1}));
-		glLightfv(GL_LIGHT0, GL_POSITION, Utils.asFloatBuffer(new float[] {0, 40 * (float)sin(lightRotation), 40 * (float)cos(lightRotation), 1}));
-		glLightfv(GL_LIGHT0, GL_SPECULAR, Utils.asFloatBuffer(new float[] {0.8f, 0.8f, 0.8f, 1}));
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, Utils.asFloatBuffer(new float[] {0.2f, 0.2f, 0.2f, 1}));
 		window.clear();
 		//draw Calls
 		square2.draw();
