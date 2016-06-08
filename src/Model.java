@@ -16,14 +16,8 @@ public class Model
 {
 	public List<Float> vertices;
 	public List<Byte> colors;
-	public list<Float> textures;
 	public List<Integer> indices;
 	public List<Float> normals;
-
-	private List<Float> verticies_index;
-	private List<Float> textures_index;
-	private List<Float> normals_index;
-	private List<Float> colors_index;
 
 	public float rotation = 0;
 	public float scale = 1;
@@ -143,16 +137,6 @@ public class Model
 				normals.add(normal);
 			}
 		}
-		else if(input.startsWith("vt "))
-		{
-			String[] stringTextures = input.split(" ");
-			float texture;
-			for(int i = 1; i < stringTextures.length; i++)
-			{
-				texture = Float.parseFloat(stringTextures[i]);
-				textures.add(texture);
-			}
-		}
 		//Index
 		else if(input.startsWith("f "))
 		{
@@ -160,13 +144,7 @@ public class Model
 			for(int i = 1; i < verts.length; i++) //Skip verts[0] since that is the "f"
 			{
 				String vertexData[] = verts[i].split("/");
-				int vertex = Integer.parseInt(vertexData[0]);
-				int texture = Integer.parseInt(vertexData[1]);
-				int normal = Integer.parseInt(vertexData[2]);
-				//indices.add(Integer.parseInt(vertexData[0]));
-				verticies_index.add(vertices.get(vertex - 1));
-				textures_index.add(textures.get(texture - 1));
-				normals_index.add(normals.get(normal - 1));
+				indices.add(Integer.parseInt(vertexData[0]));
 			}
 		}
 	}
@@ -174,18 +152,18 @@ public class Model
 	private void generateBuffers()
 	{
 		//Vertices
-		vertexBuffer = BufferUtils.createFloatBuffer(verticies_index.size());
-		float[] tempFloat = new float[verticies_index.size()];
-		for(int i = 0; i < verticies_index.size(); i++)
-			tempFloat[i] = verticies_index.get(i).floatValue();
+		vertexBuffer = BufferUtils.createFloatBuffer(vertices.size());
+		float[] tempFloat = new float[vertices.size()];
+		for(int i = 0; i < vertices.size(); i++)
+			tempFloat[i] = vertices.get(i).floatValue();
 		vertexBuffer.put(tempFloat);
 		vertexBuffer.flip();
 
 		//Colors
-		colorBuffer = BufferUtils.createByteBuffer(colors_index.size());
-		byte[] tempByte = new byte[colors_index.size()];
-		for(int i = 0; i < colors_index.size(); i++)
-			tempByte[i] = colors_index.get(i).byteValue();
+		colorBuffer = BufferUtils.createByteBuffer(colors.size());
+		byte[] tempByte = new byte[colors.size()];
+		for(int i = 0; i < colors.size(); i++)
+			tempByte[i] = colors.get(i).byteValue();
 		colorBuffer.put(tempByte);
 		colorBuffer.flip();
 
@@ -198,10 +176,10 @@ public class Model
 		indexBuffer.flip();
 
 		//Normals
-		normalsBuffer = BufferUtils.createFloatBuffer(normals_index.size());
-		float[] tempNormals = new float[normals_index.size()];
-		for(int i = 0; i < normals_index.size(); i++)
-			tempNormals[i] = normals_index.get(i).floatValue();
+		normalsBuffer = BufferUtils.createFloatBuffer(normals.size());
+		float[] tempNormals = new float[normals.size()];
+		for(int i = 0; i < normals.size(); i++)
+			tempNormals[i] = normals.get(i).floatValue();
 		normalsBuffer.put(tempNormals);
 		normalsBuffer.flip();
 	}
