@@ -144,7 +144,7 @@ public class Model
 			for(int i = 1; i < verts.length; i++) //Skip verts[0] since that is the "f"
 			{
 				String vertexData[] = verts[i].split("/");
-				indices.add(Integer.parseInt(vertexData[0]));
+				indices.add(Integer.parseInt(vertexData[0]) - 1);
 			}
 		}
 	}
@@ -153,33 +153,25 @@ public class Model
 	{
 		//Vertices
 		vertexBuffer = BufferUtils.createFloatBuffer(vertices.size());
-		float[] tempFloat = new float[vertices.size()];
-		for(int i = 0; i < vertices.size(); i++)
-			tempFloat[i] = vertices.get(i).floatValue();
+		float[] tempFloat = Utils.toFloatArray(vertices);
 		vertexBuffer.put(tempFloat);
 		vertexBuffer.flip();
 
 		//Colors
 		colorBuffer = BufferUtils.createByteBuffer(colors.size());
-		byte[] tempByte = new byte[colors.size()];
-		for(int i = 0; i < colors.size(); i++)
-			tempByte[i] = colors.get(i).byteValue();
+		byte[] tempByte = Utils.toByteArray(colors);
 		colorBuffer.put(tempByte);
 		colorBuffer.flip();
 
 		//Indices
 		indexBuffer = BufferUtils.createIntBuffer(indices.size());
-		int[] tempInt = new int[indices.size()];
-		for(int i = 0; i < indices.size(); i++)
-			tempInt[i] = indices.get(i).intValue() - 1;
+		int[] tempInt = Utils.toIntArray(indices);
 		indexBuffer.put(tempInt);
 		indexBuffer.flip();
 
 		//Normals
 		normalsBuffer = BufferUtils.createFloatBuffer(normals.size());
-		float[] tempNormals = new float[normals.size()];
-		for(int i = 0; i < normals.size(); i++)
-			tempNormals[i] = normals.get(i).floatValue();
+		float[] tempNormals = Utils.toFloatArray(normals);
 		normalsBuffer.put(tempNormals);
 		normalsBuffer.flip();
 	}
